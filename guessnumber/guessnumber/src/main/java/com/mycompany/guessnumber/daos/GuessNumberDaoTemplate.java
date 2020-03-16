@@ -12,6 +12,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDateTime;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -88,13 +89,15 @@ public class GuessNumberDaoTemplate implements GuessNumberDao{
         template.update(
                 connection -> {
                     PreparedStatement ps = connection.prepareStatement(
-                            "INSERT INTO rounds (guess, gameID, exactmatches, partialmathces) VALUES(?,?,?,?)",
+                            "INSERT INTO rounds (guess, gameID, exactmatches, partialmathces, timeGuess) VALUES(?,?,?,?,?)",
                             Statement.RETURN_GENERATED_KEYS);
 
                     ps.setInt(1, newRound.getGuess());
                     ps.setInt(2, newRound.getGameID());
                     ps.setInt(3, newRound.getExactMatches());
                     ps.setInt(4, newRound.getPratialMatches());
+                    Date toSet = Date.valueOf(newRound.getTimeOfGuess().toLocalDate());
+                    ps.setDate(5, toSet);
 
                     return ps;
 
@@ -141,6 +144,8 @@ public class GuessNumberDaoTemplate implements GuessNumberDao{
             converted.setExactMatches(row.getInt("exactmatches"));
             converted.setPratialMatches(row.getInt("partialmathces"));
             converted.setGameID(row.getInt("gameID"));
+            LocalDateTime toSet = row.getTimestamp("timeGuess").toLocalDateTime();
+            converted.setTimeOfGuess(toSet);
             
             return converted;
         }

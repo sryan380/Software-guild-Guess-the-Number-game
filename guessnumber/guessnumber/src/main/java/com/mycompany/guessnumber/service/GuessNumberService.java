@@ -9,6 +9,7 @@ import com.mycompany.guessnumber.daos.GuessNumberDao;
 import com.mycompany.guessnumber.daos.GuessNumberDaoException;
 import com.mycompany.guessnumber.models.Game;
 import com.mycompany.guessnumber.models.Round;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Random;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,6 +36,7 @@ public class GuessNumberService {
         Game aGame = getGameById(gameID);
         newRound.setGameID(aGame.getGameID());
         newRound.setGuess(guess);
+        newRound.setTimeOfGuess(LocalDateTime.now());
         
         int[] arrayGuess = convertToArray(guess);
         int[] arrayTarget = convertToArray(aGame.getTargetNum());
@@ -48,10 +50,7 @@ public class GuessNumberService {
             return Dao.insertRound(newRound);
         }
         int exactMatches = 0;
-        int partialMatches = 0; // [1,2,3,4] = 3e , 0p
-                                // [1,1,3,4]
-                                // [1,2,3,4] = 0e , 4p
-                                // [2,1,4,3]
+        int partialMatches = 0;
         for(int i = 0; i < arrayTarget.length; i++){
             for(int j = 0; j < arrayGuess.length; j++){
                 if (arrayTarget[i] == arrayGuess[i]){

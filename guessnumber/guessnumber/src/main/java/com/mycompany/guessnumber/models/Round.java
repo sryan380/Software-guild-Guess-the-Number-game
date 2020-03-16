@@ -5,6 +5,9 @@
  */
 package com.mycompany.guessnumber.models;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+
 /**
  *
  * @author Steve
@@ -15,6 +18,7 @@ public class Round {
     private int guess;
     private int exactMatches;
     private int pratialMatches;
+    private LocalDateTime timeOfGuess;
 
     /**
      * @return the roundID
@@ -84,6 +88,20 @@ public class Round {
      */
     public void setPratialMatches(int pratialMatches) {
         this.pratialMatches = pratialMatches;
+    }
+
+    /**
+     * @return the timeOfGuess
+     */
+    public LocalDateTime getTimeOfGuess() {
+        return timeOfGuess;
+    }
+
+    /**
+     * @param timeOfGuess the timeOfGuess to set
+     */
+    public void setTimeOfGuess(LocalDateTime timeOfGuess) {
+        this.timeOfGuess = timeOfGuess;
     }
 
 

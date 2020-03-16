@@ -17,6 +17,7 @@ create table rounds (
     gameID int,
     foreign key (gameID) references games(gameId),
 	guess int,
+    timeGuess Date,
     exactmatches int,
     partialmathces int
 );
