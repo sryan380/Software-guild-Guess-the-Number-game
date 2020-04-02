@@ -1,8 +1,8 @@
-Drop database if EXISTS guessnumber;
+Drop database if EXISTS guessnumbertest;
 
-create database guessnumber;
+create database guessnumbertest;
 
-use guessnumber;
+use guessnumbertest;
 
 
 

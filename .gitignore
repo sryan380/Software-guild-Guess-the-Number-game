@@ -441,3 +441,4 @@ $RECYCLE.BIN/
 
 # Windows shortcuts
 *.lnk
+/guessnumber/guessnumber/nbproject/
