@@ -17,8 +17,8 @@ public class Round {
     private int gameID;
     private int guess;
     private int exactMatches;
-    private int pratialMatches;
-    private LocalDateTime timeOfGuess;
+    private int partialMathces;
+    private LocalDateTime timeGuess;
 
     /**
      * @return the roundID
@@ -77,31 +77,31 @@ public class Round {
     }
 
     /**
-     * @return the pratialMatches
+     * @return the partialMathces
      */
-    public int getPratialMatches() {
-        return pratialMatches;
+    public int getPartialMathces() {
+        return partialMathces;
     }
 
     /**
-     * @param pratialMatches the pratialMatches to set
+     * @param partialMathces the pratialMatches to set
      */
-    public void setPratialMatches(int pratialMatches) {
-        this.pratialMatches = pratialMatches;
+    public void setPartialMathces(int partialMathces) {
+        this.partialMathces = partialMathces;
     }
 
     /**
-     * @return the timeOfGuess
+     * @return the timeGuess
      */
-    public LocalDateTime getTimeOfGuess() {
-        return timeOfGuess;
+    public LocalDateTime getTimeGuess() {
+        return timeGuess;
     }
 
     /**
-     * @param timeOfGuess the timeOfGuess to set
+     * @param timeGuess the timeOfGuess to set
      */
-    public void setTimeOfGuess(LocalDateTime timeOfGuess) {
-        this.timeOfGuess = timeOfGuess;
+    public void setTimeGuess(LocalDateTime timeGuess) {
+        this.timeGuess = timeGuess;
     }
 
 

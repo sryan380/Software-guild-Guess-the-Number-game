@@ -70,7 +70,7 @@ public class GuessNumberServiceTest {
         
         assertEquals(1, toCheck.getGameID());
         assertEquals(4, toCheck.getExactMatches());
-        assertEquals(0, toCheck.getPratialMatches());
+        assertEquals(0, toCheck.getPartialMathces());
         assertEquals(7260, toCheck.getGuess());
     }
 
@@ -79,7 +79,7 @@ public class GuessNumberServiceTest {
         List<Game> allGames = toTest.getAllGames();
         
         assertEquals(1, allGames.get(0).getGameID());
-        assertEquals(7260, allGames.get(0).getTargetNum());
+        assertEquals(0, allGames.get(0).getTargetNum());
         assertFalse(allGames.get(0).getIsComplete());
         
         assertEquals(2, allGames.get(1).getGameID());
@@ -88,10 +88,10 @@ public class GuessNumberServiceTest {
     }
 
     @Test
-    public void testGetGameByIdGoldenPath() {
+    public void testDisplayGameByIdGoldenPath() {
         Game aGame = new Game();
         try {
-            aGame = toTest.getGameById(2);
+            aGame = toTest.displayGameById(2);
         } catch (GuessNumberDaoException ex) {
             fail("threw a GuessNumberDaoException on testGetGameByIdGoldenPath");
         }
@@ -122,13 +122,13 @@ public class GuessNumberServiceTest {
         assertEquals(1, allRounds.get(0).getGameID());
         assertEquals(1234, allRounds.get(0).getGuess());
         assertEquals(1, allRounds.get(0).getExactMatches());
-        assertEquals(0, allRounds.get(0).getPratialMatches());
-        assertEquals(LocalDateTime.now(), allRounds.get(0).getTimeOfGuess());
+        assertEquals(0, allRounds.get(0).getPartialMathces());
+        assertEquals(LocalDateTime.now(), allRounds.get(0).getTimeGuess());
         
         assertEquals(1, allRounds.get(1).getGameID());
         assertEquals(7041, allRounds.get(1).getGuess());
         assertEquals(0, allRounds.get(1).getExactMatches());
-        assertEquals(1, allRounds.get(1).getPratialMatches());
+        assertEquals(1, allRounds.get(1).getPartialMathces());
     }
     
     @Test
@@ -144,10 +144,10 @@ public class GuessNumberServiceTest {
     }
     
     @Test
-    public void testGetGameByIdInvaildGameId() {
+    public void testDisplayGameByIdInvaildGameId() {
         Game aGame = new Game();
         try {
-            aGame = toTest.getGameById(-1);
+            aGame = toTest.displayGameById(-1);
         } catch (GuessNumberDaoException ex) {
 
         }

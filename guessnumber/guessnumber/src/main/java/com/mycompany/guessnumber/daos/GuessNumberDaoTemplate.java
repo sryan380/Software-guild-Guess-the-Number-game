@@ -95,8 +95,8 @@ public class GuessNumberDaoTemplate implements GuessNumberDao{
                     ps.setInt(1, newRound.getGuess());
                     ps.setInt(2, newRound.getGameID());
                     ps.setInt(3, newRound.getExactMatches());
-                    ps.setInt(4, newRound.getPratialMatches());
-                    Date toSet = Date.valueOf(newRound.getTimeOfGuess().toLocalDate());
+                    ps.setInt(4, newRound.getPartialMathces());
+                    Date toSet = Date.valueOf(newRound.getTimeGuess().toLocalDate());
                     ps.setDate(5, toSet);
 
                     return ps;
@@ -142,10 +142,10 @@ public class GuessNumberDaoTemplate implements GuessNumberDao{
             converted.setRoundID(row.getInt("roundId"));
             converted.setGuess(row.getInt("guess"));
             converted.setExactMatches(row.getInt("exactmatches"));
-            converted.setPratialMatches(row.getInt("partialmathces"));
+            converted.setPartialMathces(row.getInt("partialmathces"));
             converted.setGameID(row.getInt("gameID"));
             LocalDateTime toSet = row.getTimestamp("timeGuess").toLocalDateTime();
-            converted.setTimeOfGuess(toSet);
+            converted.setTimeGuess(toSet);
             
             return converted;
         }

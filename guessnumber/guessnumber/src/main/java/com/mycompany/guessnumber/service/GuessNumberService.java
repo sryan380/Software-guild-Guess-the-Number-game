@@ -40,6 +40,7 @@ public class GuessNumberService {
     public Round checkGuess(Integer guess, Integer gameID) throws GuessNumberDaoException, InvalidGuessException {
 
         boolean isUnique = false;
+        
         int tempGuess = guess;
         int first = tempGuess % 10;
         tempGuess /= 10;
@@ -65,7 +66,7 @@ public class GuessNumberService {
         Game aGame = getGameById(gameID);
         newRound.setGameID(aGame.getGameID());
         newRound.setGuess(guess);
-        newRound.setTimeOfGuess(LocalDateTime.now());
+        newRound.setTimeGuess(LocalDateTime.now());
 
         int[] arrayGuess = convertToArray(guess);
         int[] arrayTarget = convertToArray(aGame.getTargetNum());
@@ -95,19 +96,38 @@ public class GuessNumberService {
         }
 
         newRound.setExactMatches(exactMatches);
-        newRound.setPratialMatches(partialMatches);
+        newRound.setPartialMathces(partialMatches);
 
         return Dao.insertRound(newRound);
     }
 
     public List<Game> getAllGames() {
-        return Dao.getAllGames();
+        List<Game> allGames = Dao.getAllGames();
+        for (Game game: allGames){
+            if (!game.getIsComplete()){
+                game.setTargetNum(0000);
+            }
+        }
+        return allGames;
     }
 
-    public Game getGameById(Integer gameID) throws GuessNumberDaoException {
+    private Game getGameById(Integer gameID) throws GuessNumberDaoException {
         List<Game> games = Dao.getGameById(gameID);
         if(games.isEmpty()){
             throw new GuessNumberDaoException("Not a Valid gameID");
+        }
+        return games.get(0);
+    }
+    
+    public Game displayGameById(Integer gameID) throws GuessNumberDaoException {
+        List<Game> games = Dao.getGameById(gameID);
+        if(games.isEmpty()){
+            throw new GuessNumberDaoException("Not a Valid gameID");
+        }
+        for (Game game: games){
+            if (!game.getIsComplete()){
+                game.setTargetNum(0000);
+            }
         }
         return games.get(0);
     }
@@ -128,7 +148,7 @@ public class GuessNumberService {
 
     private Game generateTargetNum(Game newGame) {
         Random rng = new Random();
-        int first = rng.nextInt(9 - 1 + 1) + 1;
+        int first = rng.nextInt(9 - 1 + 1) +1;
         int second = 0;
         int third = 0;
         int fourth = 0;

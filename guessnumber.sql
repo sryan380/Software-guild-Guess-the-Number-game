@@ -22,9 +22,6 @@ create table rounds (
     partialmathces int
 );
 
-select * from games;
-
-
 Select * from rounds r
 inner join games g on r.gameID = g.gameID
 where r.gameID = 1;

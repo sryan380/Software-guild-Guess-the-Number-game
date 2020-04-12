@@ -15,6 +15,7 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -50,21 +51,21 @@ public class GuessNumberController {
     }
     
     @GetMapping
-    @RequestMapping("/allgames")
+    @RequestMapping("/game")
     public List<Game> getAllGames(){
         return service.getAllGames();
     }
     
     @GetMapping
-    @RequestMapping("/agame")
-    public Game getGameById(Integer gameID) throws GuessNumberDaoException{
-        Game aGame = service.getGameById(gameID);
+    @RequestMapping("/game/{id}")
+    public Game getGameById(@PathVariable("id") int gameID) throws GuessNumberDaoException{
+        Game aGame = service.displayGameById(gameID);
         return aGame;
     }
     
     @GetMapping
-    @RequestMapping("/rounds")
-    public List<Round> getrounds(Integer gameID) throws GuessNumberDaoException{
+    @RequestMapping("/rounds/{id}")
+    public List<Round> getrounds(@PathVariable("id") int gameID) throws GuessNumberDaoException{
         return service.getAllRounds(gameID);
     }
 }
