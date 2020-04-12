@@ -1,4 +1,4 @@
- /*
+/*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -22,11 +22,10 @@ import org.springframework.stereotype.Service;
 @Service
 public class GuessNumberService {
 
-    
     GuessNumberDao Dao;
-    
+
     @Autowired
-    public GuessNumberService(GuessNumberDao dao){
+    public GuessNumberService(GuessNumberDao dao) {
         this.Dao = dao;
     }
 
@@ -40,16 +39,16 @@ public class GuessNumberService {
     public Round checkGuess(Integer guess, Integer gameID) throws GuessNumberDaoException, InvalidGuessException {
 
         boolean isUnique = false;
-        
+
         int tempGuess = guess;
-        int first = tempGuess % 10;
-        tempGuess /= 10;
-        int second = tempGuess % 10;
+        int fourth = tempGuess % 10;
         tempGuess /= 10;
         int third = tempGuess % 10;
         tempGuess /= 10;
-        int fourth = tempGuess % 10;
-        
+        int second = tempGuess % 10;
+        tempGuess /= 10;
+        int first = tempGuess % 10;
+
         if (second != first) {
             if (third != second && third != first) {
                 if (fourth != third && fourth != second && fourth != first) {
@@ -91,7 +90,7 @@ public class GuessNumberService {
                 }
             }
         }
-        if (!aGame.getIsComplete()){
+        if (!aGame.getIsComplete()) {
             aGame.setTargetNum(0000);
         }
 
@@ -103,8 +102,8 @@ public class GuessNumberService {
 
     public List<Game> getAllGames() {
         List<Game> allGames = Dao.getAllGames();
-        for (Game game: allGames){
-            if (!game.getIsComplete()){
+        for (Game game : allGames) {
+            if (!game.getIsComplete()) {
                 game.setTargetNum(0000);
             }
         }
@@ -113,19 +112,19 @@ public class GuessNumberService {
 
     private Game getGameById(Integer gameID) throws GuessNumberDaoException {
         List<Game> games = Dao.getGameById(gameID);
-        if(games.isEmpty()){
+        if (games.isEmpty()) {
             throw new GuessNumberDaoException("Not a Valid gameID");
         }
         return games.get(0);
     }
-    
+
     public Game displayGameById(Integer gameID) throws GuessNumberDaoException {
         List<Game> games = Dao.getGameById(gameID);
-        if(games.isEmpty()){
+        if (games.isEmpty()) {
             throw new GuessNumberDaoException("Not a Valid gameID");
         }
-        for (Game game: games){
-            if (!game.getIsComplete()){
+        for (Game game : games) {
+            if (!game.getIsComplete()) {
                 game.setTargetNum(0000);
             }
         }
@@ -139,16 +138,24 @@ public class GuessNumberService {
 
     private int[] convertToArray(Integer toConvert) {
         String temp = Integer.toString(toConvert);
-        int[] toReturn = new int[temp.length()];
-        for (int i = 0; i < temp.length(); i++) {
-            toReturn[i] = temp.charAt(i) - '0';
+        int[] converted;
+        if (toConvert <= 999) {
+            converted = new int[temp.length() + 1];
+            for (int i = 1; i < temp.length() + 1; i++) {
+                converted[i] = temp.charAt(i - 1) - '0';
+            }
+        } else {
+            converted = new int[temp.length()];
+            for (int i = 0; i < temp.length(); i++) {
+                converted[i] = temp.charAt(i) - '0';
+            }
         }
-        return toReturn;
+        return converted;
     }
 
     private Game generateTargetNum(Game newGame) {
         Random rng = new Random();
-        int first = rng.nextInt(9 - 1 + 1) +1;
+        int first = rng.nextInt(9 - 0 + 1);
         int second = 0;
         int third = 0;
         int fourth = 0;

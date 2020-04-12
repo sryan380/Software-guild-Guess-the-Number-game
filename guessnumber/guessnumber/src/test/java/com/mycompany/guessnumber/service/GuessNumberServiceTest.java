@@ -127,7 +127,7 @@ public class GuessNumberServiceTest {
         
         assertEquals(1, allRounds.get(1).getGameID());
         assertEquals(7041, allRounds.get(1).getGuess());
-        assertEquals(0, allRounds.get(1).getExactMatches());
+        assertEquals(1, allRounds.get(1).getExactMatches());
         assertEquals(1, allRounds.get(1).getPartialMathces());
     }
     
